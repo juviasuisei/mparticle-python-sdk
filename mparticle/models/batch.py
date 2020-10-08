@@ -62,7 +62,7 @@ from .user_identities import UserIdentities
 
 class Batch(object):
 
-    def __init__(self, events=None, source_request_id=None, environment=None, ip=None, schema_version=None, device_info=None, application_info=None, user_attributes=None, deleted_user_attributes=None, user_identities=None, api_key=None, mpid=None, mp_deviceid=None, consent_state=None, context=None):
+    def __init__(self, events=None, source_request_id=None, environment=None, ip=None, schema_version=None, device_info=None, application_info=None, user_attributes=None, deleted_user_attributes=None, user_identities=None, api_key=None, mpid=None, mp_deviceid=None, consent_state=None, context=None, timestamp_unixtime_ms=None, integration_attributes=None):
         """
         Batch - a model defined in Swagger
 
@@ -86,7 +86,9 @@ class Batch(object):
             'api_key': 'str',
             'mpid': 'int',
             'mp_deviceid': 'str',
-            'context': 'BatchContext'
+            'context': 'BatchContext',
+            'timestamp_unixtime_ms': 'int',
+            'integration_attributes': 'object[int:str]'
         }
 
         self.attribute_map = {
@@ -105,6 +107,8 @@ class Batch(object):
             'mpid': 'mpid',
             'mp_deviceid': 'mp_deviceid',
             'context': 'context',
+            'timestamp_unixtime_ms': 'timestamp_unixtime_ms',
+            'integration_attributes': 'integration_attributes',
         }
 
         self._api_key = api_key
@@ -136,6 +140,8 @@ class Batch(object):
                                type(NetworkPerformanceEvent()): 'network_performance',
                                type(CrashReportEvent()): 'commerce_event'}
         self._context = context
+        self._timestamp_unixtime_ms = timestamp_unixtime_ms
+        self._integration_attributes = integration_attributes
 
     @property
     def events(self):
@@ -370,6 +376,30 @@ class Batch(object):
         self._user_attributes = user_attributes
 
     @property
+    def integration_attributes(self):
+        """
+        Gets the integration_attributes of this Batch.
+
+
+        :return: The integration_attributes of this Batch.
+        :rtype: object
+        """
+        return self._integration_attributes
+
+    @integration_attributes.setter
+    def integration_attributes(self, integration_attributes):
+        """
+        Sets the integration_attributes of this Batch.
+
+        User attributes must be a dictionary with integer strings for keys and strings as values,
+        for example: batch.integration_attributes = {"100":"ID_FOR_PARTNER_100"}
+        :param integration_attributes: The integration_attributes of this Batch.
+        :type: object
+        """
+
+        self._integration_attributes = integration_attributes
+
+    @property
     def deleted_user_attributes(self):
         """
         Gets the deleted_user_attributes of this Batch.
@@ -483,6 +513,29 @@ class Batch(object):
         """
 
         self._consent_state = consent_state
+
+    @property
+    def timestamp_unixtime_ms(self):
+        """
+        Gets the Timestamp of this Batch
+
+        :return: The timestamp of this Batch
+        :rtype: int
+        """
+
+        return self._timestamp_unixtime_ms
+
+    @timestamp_unixtime_ms.setter
+    def timestamp_unixtime_ms(self, timestamp_unixtime_ms):
+        """
+        Sets the Timestamp of this Batch.
+
+
+        :param context: The timestamp of this Batch.
+        :type: int
+        """
+
+        self._timestamp_unixtime_ms = timestamp_unixtime_ms
 
     @property
     def context(self):
